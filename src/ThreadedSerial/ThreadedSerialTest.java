@@ -31,15 +31,34 @@ package ThreadedSerial;
  * Derived from Concurrency Example by http://www.baeldung.com/java-wait-notify
  * Original code at:
  * https://github.com/eugenp/tutorials/tree/master/core-java-concurrency-basic
+ * Under MIT License
  */
 public class ThreadedSerialTest {
-
+    
     public static void main(String[] args) {
+        String packets[] = {
+          "First packet",
+          "Second packet",
+          "Third packet",
+          "Fourth packet",
+          "End"
+        };
         Data data = new Data();
-        Thread sender = new Thread(new Sender(data));
+        //Thread sender = new Thread(new Sender(data));
         Thread receiver = new Thread(new Receiver(data));
         
-        sender.start();
+        //sender.start();
         receiver.start();
+        for (String packet : packets) {
+            data.send(packet);
+ 
+            // Thread.sleep() to mimic heavy server-side processing
+            try {
+                Thread.sleep( 1000 );
+            } catch (InterruptedException e)  {
+                Thread.currentThread().interrupt(); 
+                System.out.println("Thread interrupted" + e); 
+            }
+        }
     }
 }

@@ -49,7 +49,6 @@ public class ThreadedSerialTest {
                 "End"
             };
         Data data = new Data();
-        Thread receiver = new Thread(new Receiver(data));
         
         for (String packet : packets) {
             data.send(packet);

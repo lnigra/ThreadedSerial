@@ -1,4 +1,9 @@
 /*
+ * Serial Port library Copyright (c) 1996-2003 Solutions Consulting,
+ * All Rights Reserved.
+*/
+
+/*
  * The MIT License
  *
  * Copyright 2019 Lou Nigra.
@@ -37,28 +42,20 @@ public class ThreadedSerialTest {
     
     public static void main(String[] args) {
         String packets[] = {
-          "First packet",
-          "Second packet",
-          "Third packet",
-          "Fourth packet",
-          "End"
-        };
+                "First packet",
+                "Second packet",
+                "Third packet",
+                "Fourth packet",
+                "End"
+            };
         Data data = new Data();
-        //Thread sender = new Thread(new Sender(data));
         Thread receiver = new Thread(new Receiver(data));
         
-        //sender.start();
-        receiver.start();
         for (String packet : packets) {
             data.send(packet);
+            String response = data.receive();
+            System.out.println( response );
  
-            // Thread.sleep() to mimic heavy server-side processing
-            try {
-                Thread.sleep( 1000 );
-            } catch (InterruptedException e)  {
-                Thread.currentThread().interrupt(); 
-                System.out.println("Thread interrupted" + e); 
-            }
         }
     }
 }

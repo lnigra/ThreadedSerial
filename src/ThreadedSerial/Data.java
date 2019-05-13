@@ -30,6 +30,7 @@ package ThreadedSerial;
  * Derived from Concurrency Example by http://www.baeldung.com/java-wait-notify
  * Original code at:
  * https://github.com/eugenp/tutorials/tree/master/core-java-concurrency-basic
+ * Under MIT License
 */
 
 public class Data {
@@ -64,8 +65,14 @@ public class Data {
             }
         }
         transfer = true;
+        try {
+            Thread.sleep( 1000 );
+        } catch (InterruptedException e)  {
+            Thread.currentThread().interrupt(); 
+            System.out.println("Thread interrupted" + e); 
+        }
  
         notifyAll();
-        return packet;
+        return packet + " response";
     }
 }

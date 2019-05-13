@@ -1,0 +1,11 @@
+
+main grabs a command
+passes it to send if send is clear
+main waits for result from receiver
+sender waits for receiver to be clear
+sender sends command to serial port
+receiver sets status to busy, collects serial port responses until message end or timeout
+receiver returns result to sender and changes status to clear.
+sender passes result to main
+
+
